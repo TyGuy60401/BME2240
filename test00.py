@@ -8,9 +8,9 @@ xx, yy = np.meshgrid(x,y)
 g = xx
 h = yy
 
-# yp = np.sqrt(x*x)
+yp = np.sqrt(x*x + 1.25)
 
-plt.plot(x)
+plt.plot(x, yp)
 plt.quiver(xx, yy, h, g)
 
 plt.show()
