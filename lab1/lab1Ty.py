@@ -22,7 +22,6 @@ elif run == 3:
     # Part 3, dy/dx = x + y
     g = xx + yy
     h = 1
-    # yp = -x + 2
     yp = -x - 1 + np.e*np.e**x/3
     yn = -x - 1
 else:
