@@ -2,7 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-fout = open("outputlab3-1.csv", 'w')
+foutName = input("Output file name: ")
+fout = open(foutName, 'w')
 
 def printLine(t=0, yEuler=0, k1Euler=0, yMidpoint=0, 
                 k1Mid=0, k2Mid=0, yRK=0, k1RK=0, 
@@ -24,7 +25,7 @@ k1 = func(t0, y0)
 
 # Set values for range and step size
 tf = 4
-deltat = 0.1
+deltat = float(input("Delta t: "))
 n = int((tf-t0)/deltat + 1)
 
 # Create array for the t values
@@ -95,7 +96,15 @@ for i in range(1, n):
                         k1RK4[i],k2RK4[i],k3RK4[i],k4RK4[i]))
     fout.write('\n')
 
-plt.plot(t, yEuler, t, yMidpoint, t, yRK4)
-plt.plot(t, np.e**(t**3/3-t**2/2-t), c="red")
+# Plt stuff
+plt.plot(t, yEuler, '.', c="blue", label="Euler")
+plt.plot(t, yMidpoint, '.', c="orangered", label="Midpoint")
+plt.plot(t, yRK4, '.', c="gray", label="RK4")
+tBig = np.linspace(t0, tf, 1001)
+plt.plot(tBig, np.e**(tBig**3/3-tBig**2/2-tBig), c="gold", label="Analytical")
 plt.yscale("symlog")
+plt.ylabel("Y-axis")
+plt.xlabel("X-axis")
+plt.legend()
+plt.title("Runga-Kutta approximations of dy/dx=yx^2-yx-y")
 plt.show()
