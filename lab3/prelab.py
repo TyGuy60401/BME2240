@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-fout = open("output.csv", 'w')
+fout = open("output1.csv", 'w')
 
 def printLine(t=0, yEuler=0, k1Euler=0, yMidpoint=0, k1Mid=0, k2Mid=0, yRK=0, k1RK=0, k2RK=0, k3RK=0, k4RK=0):
     fStr1 = "%.1f"
@@ -50,6 +50,7 @@ k1Euler[0] = k1
 yMidpoint[0] = y0
 k1Midpoint[0] = k1
 k2Midpoint[0] = (y0+deltat/2*k1) * (t0+deltat/2)**3 - 1.5*(y0+deltat/2*k1)
+k2Midpoint[0] = func(t0+deltat/2, y0+deltat/2*k1)
 
 yRK4[0] = y0
 k1RK4[0] = k1
