@@ -16,7 +16,7 @@ def func(t, y):
 # Initial Conditions
 t0 = 0
 y0 = 1
-k1 = y0*t0**3-1.5*y0
+k1 = func(t0, y0)
 
 # Set values for range and step size
 tf = 4
@@ -49,7 +49,6 @@ k1Euler[0] = k1
 
 yMidpoint[0] = y0
 k1Midpoint[0] = k1
-k2Midpoint[0] = (y0+deltat/2*k1) * (t0+deltat/2)**3 - 1.5*(y0+deltat/2*k1)
 k2Midpoint[0] = func(t0+deltat/2, y0+deltat/2*k1)
 
 yRK4[0] = y0
