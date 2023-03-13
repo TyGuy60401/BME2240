@@ -10,3 +10,7 @@ for
  - an output file to be written to
  - [optional] The number of seconds between each frame.
 
+Here is an example
+```
+python compileFiles.py ./outputFiles/ ./outputFinal.txt
+```
