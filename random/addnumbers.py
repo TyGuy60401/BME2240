@@ -1,20 +1,53 @@
 import sys
+import os
+
+def addNumbers(folderIn, fout, num):
+    """ Takes multiple files from a directory and compiles
+    them into one file and adjusts the time values accordingly.
+
+    Args:
+    folderIn - Path of folder with all the messy
+    output files.
+    fout - Name of output file
+    num - Amount of time between each frame. Default is 0.04.
+    
+    return None"""
+
+    fileOut = open(fout, "w")
+    lastXVal = 0
+    totalTimeDiff = 0
+    for filename in os.listdir(folderIn):
+        my_file = os.path.join(folderIn, filename)
+        if os.path.isfile(my_file):
+            print(my_file)
+        
+            myFile = open(my_file, "r")
+            lines = myFile.readlines()
+
+            for line in lines:
+                xVal = float(line.split(' ')[0])
+                xVal += totalTimeDiff
+                lineString = "%f %s" % (xVal, line.split(' ')[1])
+                fileOut.write(lineString)
+            
+            lastLine = lines[-1]
+            lastXVal = float(lastLine.split(' ')[0])
+            totalTimeDiff += lastXVal + num
+            myFile.close()
+
+
+    
 
 def main(argv):
-    fin = argv[1]
+    folderIn = argv[1]
     fout = argv[2]
-    num = float(argv[3])
+    if len(argv) == 3:
+        addNumbers(folderIn, fout, 0.04)
+    else:
+        num = float(argv[3])
+        addNumbers(folderIn, fout, num)
 
-    my_file = open(fin, "r")
 
-    file_list = my_file.readlines()
-
-    fout = open(fout, "w")
-    for line in file_list:
-        x_val = float(line.split(' ')[0])
-        x_val += num
-        newString = "%f %s" % (x_val, line.split(' ')[1])
-        fout.write(newString)
 
 if __name__ == '__main__':
     main(sys.argv)
