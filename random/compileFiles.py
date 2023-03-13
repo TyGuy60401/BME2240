@@ -1,7 +1,7 @@
 import sys
 import os
 
-def addNumbers(folderIn, fout, num):
+def compileFiles(folderIn, fout, num):
     """ Takes multiple files from a directory and compiles
     them into one file and adjusts the time values accordingly.
 
@@ -36,16 +36,14 @@ def addNumbers(folderIn, fout, num):
             myFile.close()
 
 
-    
-
 def main(argv):
     folderIn = argv[1]
     fout = argv[2]
     if len(argv) == 3:
-        addNumbers(folderIn, fout, 0.04)
+        compileFiles(folderIn, fout, 0.04)
     else:
         num = float(argv[3])
-        addNumbers(folderIn, fout, num)
+        compileFiles(folderIn, fout, num)
 
 
 
