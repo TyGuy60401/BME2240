@@ -12,5 +12,19 @@ for
 
 Here is an example
 ```
-python compileFiles.py ./outputFiles/ ./outputFinal.txt
+> python compileFiles.py ./outputFiles/ ./outputFinal.txt
 ```
+
+It is important that the files be named sequentially. The files are 
+going to be compiled in alphabetical order ascending. For example, 
+the names of the output files could be:
+
+output1.txt
+output2.txt
+.
+.
+.
+
+It is also important that there are no other files in the directory.
+
+Good luck with the lab!
