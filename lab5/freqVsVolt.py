@@ -17,7 +17,7 @@ def main(argv):
         freq = np.array([1000, 1500, 2000, 3000, 4000, 5000, 6000, 7500, 10000, 20000, 50000, 75000, 100000])
         volt = np.array([5.5, 5.8, 6.3, 7.9, 12.2, 17.2, 8.9, 4, 1.9, 0.6, 0.35, 0.35, 0.3])
         plt.title("Voltage vs Frequency - RLC Series Circuit\n - Measured Values - ")
-    plt.plot(freq, volt)
+    plt.plot(freq, volt, '.')
     plt.xlabel(r"Frequency $[Hz]$")
     plt.ylabel(r"Voltage $[V]$")
     plt.semilogx()
