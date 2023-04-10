@@ -7,33 +7,29 @@ def main(argv):
                   [ 1000,   330, -2230]], dtype='int64')
     S = np.array([[-10, 0, 0]], dtype='int64')
 
-    det = calc_det(A)
-    D_x = np.concatenate((S.T,A[:,1:]), axis=1)
-    D_y = np.concatenate((A[:,0:1], S.T, A[:,2:]), axis=1)
-    D_z = np.concatenate((A[:,0:2], S.T), axis=1)
-    x = calc_det(D_x) / det
-    y = calc_det(D_y) / det
-    z = calc_det(D_z) / det
-    print(np.array([x,y,z]))
-    
-    return
+    solution = cramer(A, S)
+    print(solution)
+
+def cramer(A, S):
+    det_A = calc_det(A)
+    solution = []
+    for i in range(len(A[0])):
+        mat = np.concatenate((A[:,0:i], S.T, A[:,i+1:]), axis=1)
+        val = calc_det(mat) / det_A
+        solution.append(val)
+    return np.array(solution)
 
 def calc_det(A):
     n = len(A[0])
+    val = 0
     if (n == 1):
         return A[0]
     elif (n == 2):
         return A[0][0]*A[1][1] - A[0][1]*A[1][0]
     else:
-        val = 0
         for i in range(len(A[0])):
-            sub1 = A[1:,0:i]
-            sub2 = A[1:,i+1:]
-            sub = np.concatenate((sub1, sub2), axis=1)
-            even = int(i%2 == 0) * 2 - 1
-            val += A[0][i] * calc_det(sub) * even
+            val += A[0][i] * calc_det(np.concatenate((A[1:,0:i], A[1:,i+1:]), axis=1)) * (int(i%2 == 0) * 2 - 1)
     return val
-
 
 if __name__ == '__main__':
     main(sys.argv)
