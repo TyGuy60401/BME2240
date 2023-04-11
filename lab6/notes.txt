@@ -1,6 +1,0 @@
-Using Python, 
-1 - write a script using np.linalg commands to deliver the solution to your matrix
-    equation by determining the inverse of the coefficient matrix and multiplying the solution vector
-(as shown in the introduction). Compare your numerical solutions for I1, I2, and I3 to your
-measurements.
-
