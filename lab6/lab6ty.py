@@ -7,6 +7,7 @@ def main(argv):
                   [ 1000,   330, -2230]])
     A_inv = np.linalg.inv(np.matrix(A))
 
+    # Added a comment
     S = [-10, 0, 0]
     x = np.dot(A_inv, S)
     print("Solution matrix:",x, sep='\n')
