@@ -27,12 +27,16 @@ def runge_kutta_4(f, x0, v0, h, t):
     for i in range(1, len(t)):
         k1x = h * v[i-1]
         k1v = h * (f(t[i-1], x[i-1], v[i-1]))
+
         k2x = h * (v[i-1] + 0.5 * k1v)
         k2v = h * (f(t[i-1] + 0.5 * h, x[i-1] + 0.5 * k1x, v[i-1] + 0.5 * k1v))
+        
         k3x = h * (v[i-1] + 0.5 * k2v)
         k3v = h * (f(t[i-1] + 0.5 * h, x[i-1] + 0.5 * k2x, v[i-1] + 0.5 * k2v))
+
         k4x = h * (v[i-1] + k3v)
         k4v = h * (f(t[i-1] + h, x[i-1] + k3x, v[i-1] + k3v))
+
         x[i] = x[i-1] + (k1x + 2*k2x + 2*k3x + k4x) / 6
         v[i] = v[i-1] + (k1v + 2*k2v + 2*k3v + k4v) / 6
     return x

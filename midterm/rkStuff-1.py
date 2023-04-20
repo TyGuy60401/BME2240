@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 t0 = 0
 tf = 60
 num = 600
-deltat = (tf-t0/num)
+deltat = (tf-t0)/num
 t = np.linspace(t0, tf, num+1)
 
 # Make zero arrays
