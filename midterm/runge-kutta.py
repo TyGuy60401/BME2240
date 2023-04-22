@@ -19,12 +19,11 @@ def main():
     plt.ylabel(r"Distance $[m]$")
     plt.plot(t, x, label="RK4 Approx.", color="xkcd:red")
     plt.plot(t, analytical, label="Analytical", color="xkcd:azure")
-    # plt.plot(data, '.', label="Measured Data", color="xkcd:faded green")
+    plt.plot(data, '.', label="Measured Data", color="xkcd:faded green")
     plt.title("RK4, Measured Data - Mass on a Spring")
     plt.legend()
-    # data.plot()
-    plt.savefig("./imgs/output_img.png")
-    # plt.show()
+    # plt.savefig("./imgs/output_img.png")
+    plt.show()
 
 def runge_kutta_4(f, x0, u0, h, t):
     x = np.zeros(len(t))
@@ -51,8 +50,8 @@ def runge_kutta_4(f, x0, u0, h, t):
 def f(t, x, u):
     return -45*x - 0.0175*u - 0.9*9.81
 
-def analyze(x, c1, c2, alpha, beta):
-    return c1*np.e**(-alpha * x)*np.cos(beta*x) + c2*np.e**(-alpha * x)*np.sin(beta*x) - 0.2
+def analyze(t, c1, c2, alpha, beta):
+    return c1*np.e**(-alpha * t)*np.cos(beta*t) + c2*np.e**(-alpha * t)*np.sin(beta*t) - 0.2
 
 if __name__ == '__main__':
     main()
