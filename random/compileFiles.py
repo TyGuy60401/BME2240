@@ -12,10 +12,12 @@ def compileFiles(folderIn, fout, num):
     num - Amount of time between each frame. Default is 0.04.
     
     return None"""
+    amountsList = getAmountsToChange()
 
     fileOut = open(fout, "w")
     lastXVal = 0
     totalTimeDiff = 0
+    fileNum = 0
     for filename in os.listdir(folderIn):
         my_file = os.path.join(folderIn, filename)
         if os.path.isfile(my_file):
@@ -27,14 +29,33 @@ def compileFiles(folderIn, fout, num):
             for line in lines:
                 xVal = float(line.split(' ')[0])
                 xVal += totalTimeDiff
-                lineString = "%f %s" % (xVal, line.split(' ')[1])
+                yVal = float(line.split(' ')[1])
+                yVal += amountsList[fileNum]
+                lineString = "%f %f\n" % (xVal, yVal)
                 fileOut.write(lineString)
             
             lastLine = lines[-1]
             lastXVal = float(lastLine.split(' ')[0])
             totalTimeDiff += lastXVal + num
             myFile.close()
+            fileNum += 1
 
+
+def getAmountsToChange():
+    amountsList = []
+    fileNum = 1
+    inputString = "How much to change file %s: "
+    userIn = input(inputString % fileNum)
+    while "q" not in userIn.lower():
+        try:
+            amountsList.append(float(userIn))
+            fileNum += 1
+            userIn = input(inputString % fileNum)
+            continue
+        except:
+            userIn = input("Try again with a number: ")
+            continue
+    return amountsList
 
 def main(argv):
     folderIn = argv[1]
@@ -44,8 +65,6 @@ def main(argv):
     else:
         num = float(argv[3])
         compileFiles(folderIn, fout, num)
-
-
 
 if __name__ == '__main__':
     main(sys.argv)
