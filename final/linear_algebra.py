@@ -7,8 +7,32 @@ def main(argv):
                   [1, -1, 1]])
     b = np.array([1, 10, 1])
     # Q, R = qrgs(a)
-    print(linear_least_squares(a, b))
-    return
+    # print(linear_least_squares(a, b))
+
+    a1 = np.array([[8/5, -1/5],
+                   [-6/5, 7/5]])
+    print(eigen(a1))
+
+def eigen(A, MAX_ITER=100):
+    """Eigen decomposition of A such that Av = wv. This
+    routine uses QR decomposition to find the eigensystem.
+    
+    Parameters
+    ----------
+    A : ndarray
+        Square, real, and symmetric matrix to decompose 
+        with size MxM
+    MAX_ITER : int
+        Maximum number of iterations
+    
+    Returns
+    -------
+    w : ndarray
+        1D array of eigenvalues with length M
+    v : ndarray
+        2D array of eigenvectors (in columns) with size MxM"""
+
+
 
 def linear_least_squares(A, b):
     """QR-based linear least squares to solve Ax=b
@@ -30,8 +54,8 @@ def linear_least_squares(A, b):
     Q, R = qrgs(A)
     
     rhs = np.flip(np.matmul(Q.T, b))
-    print(rhs)
-    print(np.flip(R))
+    # print(rhs)
+    # print(np.flip(R))
     x = np.array([])
     R_flip = np.flip(R)
     for i in range(len(R_flip)):
