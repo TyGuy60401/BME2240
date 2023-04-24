@@ -2,15 +2,47 @@ import numpy as np
 import sys
 
 def main(argv):
-    v1 = np.array([1, 2, 3])
-    v2 = np.array([[4], [5], [6]])
-    V = np.array([1, 0, 1])
-    # print(normalize(V))
     a = np.array([[1, 1, 2],
                   [0, -1, 2],
                   [1, -1, 1]])
-    Q, R = qrgs(a)
+    b = np.array([1, 10, 1])
+    # Q, R = qrgs(a)
+    print(linear_least_squares(a, b))
     return
+
+def linear_least_squares(A, b):
+    """QR-based linear least squares to solve Ax=b
+    
+    Parameters
+    ----------
+    A : ndarray
+        Skinny (MxN where M >= N) matrix
+    B : ndarray
+        1D array
+    
+    Returns
+    -------
+    x : ndarray
+        1D solution array
+    """
+    # Ax = b
+    # Rx = Q^T b
+    Q, R = qrgs(A)
+    
+    rhs = np.flip(np.matmul(Q.T, b))
+    print(rhs)
+    print(np.flip(R))
+    x = np.array([])
+    R_flip = np.flip(R)
+    for i in range(len(R_flip)):
+        sol = rhs[i]
+        j = 0
+        for val in x:
+            sol -= R_flip[i, j]*val
+            j += 1
+        sol /= R_flip[i, j]
+        x = np.append(x, sol)
+    return np.flip(x)
 
 def qrgs(A):
     """Gram-Schmidt QR decomposition that decomposes A such
