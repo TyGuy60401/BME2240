@@ -12,8 +12,13 @@ def main(argv):
                    [0, -1, 2],
                    [1, -1, 1],
                    [1, 0, 1]])
+    a3 = np.array([[1, 1, 2],
+                   [0, -1, 2],
+                   [1, 0, 1]])
     Q, R = qrgs(a2)
+    Q1, R1, = qrgs(a3)
     print(Q, R, sep="\n")
+    print(Q1, R1, sep='\n')
     # print(linear_least_squares(a, b))
     c = np.array([[1, 2, 3],
                   [1, 1, 2],
@@ -24,7 +29,7 @@ def main(argv):
     # print(is_upper_triangle(c))
     # print(eigen(a))
 
-def eigen(A, MAX_ITER=3000):
+def eigen(A, MAX_ITER=4000):
     """Eigen decomposition of A such that Av = wv. This
     routine uses QR decomposition to find the eigensystem.
     
@@ -137,8 +142,10 @@ def qrgs(A):
     M, N = A.shape
     Q = np.zeros((M, N))
     for i in range(N):
-        e = get_e(A, i+1)
-        print(Q.shape, e.shape)
+        e = get_e(A, i+1, {})
+        # print(Q.shape, e.shape)
+        # print(Q[:,0:i])
+        # print(e)
         Q = np.concatenate((Q[:,0:i], e, Q[:,i+1:]), axis=1)
     # print(Q)
     
