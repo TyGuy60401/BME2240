@@ -54,6 +54,7 @@ def eigen(A, MAX_ITER=4000):
     assert M == N, "Matrix is not square"
     for i in range(MAX_ITER):
         Q, R = qrgs(A)
+        # Q, R = np.linalg.qr(A)
         A = np.dot(R, Q)
         V = np.dot(V, Q)
         if is_upper_triangle(A):
@@ -104,6 +105,7 @@ def linear_least_squares(A, b):
     # Ax = b
     # Rx = Q^T b
     Q, R = qrgs(A)
+    # Q, R = np.linalg.qr(A)
     
     rhs = np.flip(np.matmul(Q.T, b))
     x = np.array([])
