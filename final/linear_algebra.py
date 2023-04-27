@@ -72,7 +72,6 @@ def getDiagonals(A):
     M = A.shape[0]
     sol = np.zeros(M)
     for i in range(M):
-        # print(A[i,i])
         sol[i] = A[i,i]
     return sol
 
@@ -104,12 +103,9 @@ def linear_least_squares(A, b):
     assert M >= N, "Matrix is not skinny"
     # Ax = b
     # Rx = Q^T b
-    # Q, R = qrgs(A)
-    Q, R = eval("np.lin" + "alg.qr" + "(A)")
+    Q, R = qrgs(A)
     
     rhs = np.flip(np.matmul(Q.T, b))
-    # print(rhs)
-    # print(np.flip(R))
     x = np.array([])
     R_flip = np.flip(R)
     for i in range(len(R_flip)):
@@ -143,11 +139,7 @@ def qrgs(A):
     Q = np.zeros((M, N))
     for i in range(N):
         e = get_e(A, i+1, {})
-        # print(Q.shape, e.shape)
-        # print(Q[:,0:i])
-        # print(e)
         Q = np.concatenate((Q[:,0:i], e, Q[:,i+1:]), axis=1)
-    # print(Q)
     
     # Making the R matrix
     R = np.zeros((N,N))
@@ -194,7 +186,6 @@ def normalize(V):
     # Calculate the length
     for val in V:
         radicand += val*val
-    # print(np.abs(V))
     length = np.sqrt(radicand)
     return V/length
 
