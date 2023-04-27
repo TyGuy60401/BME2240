@@ -137,7 +137,9 @@ def qrgs(A):
     M, N = A.shape
     Q = np.zeros((M, N))
     for i in range(N):
-        Q = np.concatenate((Q[:,0:i], get_e(A, i+1), Q[:,i+1:]), axis=1)
+        e = get_e(A, i+1)
+        print(Q.shape, e.shape)
+        Q = np.concatenate((Q[:,0:i], e, Q[:,i+1:]), axis=1)
     # print(Q)
     
     # Making the R matrix
@@ -157,8 +159,8 @@ def get_e(A, n, memo={}):
     the calculation of Q in the Gram-Schmidt decomposition"""
     # un = an - (dot(an, en-1))*en-1 - (dot(an,en-2))*en-2 - ... - (dot(an,e1))*e1
 
-    # if n in memo:
-    #     return memo[n]
+    if n in memo:
+        return memo[n]
 
     if n == 1:
         u = A[:,0:1]
@@ -176,7 +178,7 @@ def get_e(A, n, memo={}):
             ni -= 1
     
     e = normalize(u)
-    # memo[n] = e
+    memo[n] = e
     return e
 
 def normalize(V):
