@@ -3,6 +3,7 @@ import sys
 
 
 def main(argv):
+    # Some code used for testing
     a = np.array([[1, 2, 3],
                   [2, 2, 1],
                   [3, 1, 3]])
@@ -19,15 +20,12 @@ def main(argv):
     Q1, R1, = qrgs(a3)
     print(Q, R, sep="\n")
     print(Q1, R1, sep='\n')
-    # print(linear_least_squares(a, b))
     c = np.array([[1, 2, 3],
                   [1, 1, 2],
                   [0, 0, 1]])
 
     a1 = np.array([[8/5, -1/5],
                    [-6/5, 7/5]])
-    # print(is_upper_triangle(c))
-    # print(eigen(a))
 
 def eigen(A, MAX_ITER=4000):
     """Eigen decomposition of A such that Av = wv. This
@@ -50,11 +48,9 @@ def eigen(A, MAX_ITER=4000):
     
     M, N = A.shape
     V = identity(M)
-    # print(V)
     assert M == N, "Matrix is not square"
     for i in range(MAX_ITER):
         Q, R = qrgs(A)
-        # Q, R = np.linalg.qr(A)
         A = np.dot(R, Q)
         V = np.dot(V, Q)
         if is_upper_triangle(A):
@@ -105,7 +101,6 @@ def linear_least_squares(A, b):
     # Ax = b
     # Rx = Q^T b
     Q, R = qrgs(A)
-    # Q, R = np.linalg.qr(A)
     
     rhs = np.flip(np.matmul(Q.T, b))
     x = np.array([])
