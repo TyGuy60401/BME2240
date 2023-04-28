@@ -13,16 +13,8 @@ def main():
         gradients = np.array(hf.get("gradient"))
         s0 = np.array(hf.get("s0_image"))
     
-    try:
-        FA = np.loadtxt('FA-out.txt')
-    except:
-        print("File not found, calculating new array")
-    else:
-        plt.imshow(1-FA, cmap='Greys')
-        plt.show()
-        return
 
-    if True:
+    if not True:
         print(si[0,0])
         print(s0[0, 0])
         print(s0.shape)
@@ -34,22 +26,36 @@ def main():
                 # if i % 10 == 0:
                 #     plt.imshow(si[i], interpolation='nearest')
             plt.show()
+
+    try:
+        FA = np.loadtxt('FA-out.txt')
+    except:
+        print("File not found, calculating new array")
+    else:
+        plt.imshow(FA, cmap='Greys')
+        plt.show()
+        return
+
     FA = np.zeros(s0.shape)
     for m in range(s0.shape[0]):
         for n in range(s0.shape[1]):
-            inner = si[m,n,:]/(s0[m,n]+1e-10)
+            # print(si[m,n,:])
+            # if n == 0:
+            #     input("")
+            inner = si[m,n,:]/(s0[m,n]+1e-16)
             if np.max(inner) < 1e-16:
                 FA[m,n] = 0
                 continue
             # each y is a pixel?
             y = -np.log(inner).squeeze()/bvals
             dvals = la.linear_least_squares(gradients.T, y)
+            # dvals = la.linear_least_squares(y.T, gradients)
             dx = dvals[0]
             dy = dvals[1]
             dz = dvals[2]
             D = np.array([[dx*dx, dx*dy, dx*dz],
-                          [0, dy*dy, dy*dz],
-                          [0, 0, dz*dz]])
+                          [dx*dy, dy*dy, dy*dz],
+                          [dx*dz, dy*dz, dz*dz]])
             w, v = la.eigen(D, MAX_ITER=2000)
             l0, l1, l2 = w
             FA[m,n] = np.sqrt(((l0-l1)**2 + (l0-l2)**2 + (l1-l2)**2)/ (2*(l0*l0 + l1*l1 + l2*l2)))
